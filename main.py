@@ -47,22 +47,22 @@ class ChatWindow(QWidget):
         self.layout.addWidget(self.line_edit)
         self.setLayout(self.layout)
 
-        server_port = int(input('Порт сервера: '))
+        
         self.server_thread = ServerThread(server_port)
         self.server_thread.new_message.connect(self.receive_message)
         self.server_thread.start()
 
-        client_port = int(input('Порт клиента: '))
+        
         self.client_thread = ClientThread(client_port)
         self.client_thread.new_message.connect(self.receive_message)
         self.client_thread.start()
 
     def receive_message(self, message):
-        self.text_browser.append(f"Received: {message}")
+        self.text_browser.append(message)
 
     def send_message(self):
         message = self.line_edit.text()
-        self.text_browser.append(f"Sent: {message}")
+        self.text_browser.append(message)
         self.line_edit.clear()
         self.client_thread.client.send(message.encode())
 
