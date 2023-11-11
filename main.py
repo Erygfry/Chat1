@@ -47,12 +47,12 @@ class ChatWindow(QWidget):
         self.layout.addWidget(self.line_edit)
         self.setLayout(self.layout)
 
-        
+        server_port = int(input())
         self.server_thread = ServerThread(server_port)
         self.server_thread.new_message.connect(self.receive_message)
         self.server_thread.start()
 
-        
+        client_port=int(input())
         self.client_thread = ClientThread(client_port)
         self.client_thread.new_message.connect(self.receive_message)
         self.client_thread.start()
